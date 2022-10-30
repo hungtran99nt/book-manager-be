@@ -1,8 +1,41 @@
 package edu.ptit.wp2022.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import edu.ptit.wp2022.models.Book;
+import edu.ptit.wp2022.services.BookServices;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/books")
 public class BooksRestController {
+    private final BookServices bookServices;
+
+    public BooksRestController(BookServices bookServices) {
+        this.bookServices = bookServices;
+    }
+
+    @GetMapping()
+    public List<Book> getAllBooks() {
+        return bookServices.getAllBooks();
+    }
+
+    @PostMapping("/add")
+    public Book addBook(@RequestBody Book book) {
+        return bookServices.addBook(book);
+    }
+
+    @PutMapping("/update")
+    public Book updateBook(@RequestBody Book book) {
+        return bookServices.updateBook(book);
+    }
+
+    @DeleteMapping("/delete/{code}")
+    public void updateBook(@PathVariable String code) {
+        bookServices.deleteBook(Integer.parseInt(code));
+    }
 }
+
+
+
+

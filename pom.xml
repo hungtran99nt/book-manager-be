@@ -18,8 +18,23 @@
     </properties>
     <dependencies>
         <dependency>
+            <artifactId>springfox-swagger2</artifactId>
+            <groupId>io.springfox</groupId>
+            <version>2.9.2</version>
+        </dependency>
+        <!-- swagger ui -->
+        <dependency>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <groupId>io.springfox</groupId>
+            <version>2.9.2</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <groupId>org.springframework.boot</groupId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
