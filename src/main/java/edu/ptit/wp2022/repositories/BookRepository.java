@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Integer> {
-    Optional<Book> findBookByCode(int code);
+    Optional<Book> findBookById(int code);
 
-    void deleteByCode(int code);
+    void deleteById(int code);
 }

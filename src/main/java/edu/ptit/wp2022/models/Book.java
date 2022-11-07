@@ -10,18 +10,21 @@ import javax.persistence.*;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "code", nullable = false)
-    private int code;
+    @Column(name = "id", nullable = false)
+    private int id;
 
-    @Column(name = "title")
+    @Column(name = "code", length = 10, unique = true)
+    private String code;
+
+    @Column(name = "title", length = 100)
     private String title;
 
-    @Column(name = "author")
+    @Column(name = "author", length = 50)
     private String author;
 
-    @Column(name = "category")
+    @Column(name = "category", length = 100)
     private String category;
 
-    @Column(name = "approved")
-    private int approved;
+    @Column(name = "approved", nullable = false)
+    private boolean approved;
 }

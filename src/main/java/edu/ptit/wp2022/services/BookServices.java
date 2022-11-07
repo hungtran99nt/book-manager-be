@@ -20,15 +20,20 @@ public class BookServices {
         return bookRepository.findAll();
     }
 
+    public Book getBookById(int id) {
+        return bookRepository.findBookById(id)
+                .orElseThrow(() -> new RuntimeException("Book not found"));
+    }
+
     public Book addBook(Book book) {
         return bookRepository.save(book);
     }
 
     public Book updateBook(Book book) {
-        Book desBook = bookRepository.findBookByCode(book.getCode())
-                .orElseThrow(() -> new NoSuchElementException("Book not found"));
+        Book desBook = bookRepository.findBookById(book.getId())
+                .orElseThrow(() -> new RuntimeException("Book not found"));
 
-        desBook.setApproved(book.getApproved());
+        desBook.setApproved(book.isApproved());
         desBook.setCategory(book.getCategory());
         desBook.setTitle(book.getTitle());
         desBook.setAuthor(book.getAuthor());
@@ -37,9 +42,9 @@ public class BookServices {
     }
 
     @Transactional
-    public void deleteBook(int code) {
-        bookRepository.findBookByCode(code)
+    public void deleteBook(int id) {
+        bookRepository.findBookById(id)
                 .orElseThrow(() -> new NoSuchElementException("Book not found"));
-        bookRepository.deleteByCode(code);
+        bookRepository.deleteById(id);
     }
 }
