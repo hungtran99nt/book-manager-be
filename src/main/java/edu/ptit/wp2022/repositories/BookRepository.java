@@ -11,4 +11,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     Optional<Book> findBookById(int code);
 
     void deleteById(int code);
+
+    boolean existsBookByCode(String code);
 }

@@ -47,4 +47,9 @@ public class BookServices {
                 .orElseThrow(() -> new NoSuchElementException("Book not found"));
         bookRepository.deleteById(id);
     }
+
+    public void existsBookByCode(String code) {
+        if (bookRepository.existsBookByCode(code))
+            throw new RuntimeException("Book code exists");
+    }
 }

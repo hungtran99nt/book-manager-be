@@ -56,4 +56,9 @@ public class BooksController {
         bookServices.deleteBook(id);
         return "redirect:/v2/books";
     }
+
+    @GetMapping("/{code}/exist")
+    public void existsBookByCode(@PathVariable(value = "code") String code) {
+        bookServices.existsBookByCode(code);
+    }
 }

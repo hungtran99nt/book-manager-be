@@ -34,6 +34,11 @@ public class BooksRestController {
     public void updateBook(@PathVariable String code) {
         bookServices.deleteBook(Integer.parseInt(code));
     }
+
+    @GetMapping("/{code}/exist")
+    public void existsBookByCode(@PathVariable(value = "code") String code) {
+        bookServices.existsBookByCode(code);
+    }
 }
 
 
