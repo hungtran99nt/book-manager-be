@@ -15,38 +15,38 @@ $(document).ready(function () {
         }, false)
     })
 
-    const invalidFeedbackCode = document.getElementById('invalidFeedbackCode');
-    const formInputBookCode = document.getElementById('formInputBookCode');
-    formInputBookCode.addEventListener('change', function () {
+    const invalidFeedbackId = document.getElementById('invalidFeedbackId');
+    const formInputEmployeeId = document.getElementById('formInputEmployeeId');
+    formInputEmployeeId.addEventListener('change', function (event) {
         this.classList.remove("is-invalid");
         this.setCustomValidity("");
     }, false);
-    formInputBookCode.addEventListener('input', function () {
+    formInputEmployeeId.addEventListener('input', function () {
         this.classList.remove("is-invalid");
         this.classList.remove("is-valid");
         this.setCustomValidity("");
     }, false);
 
-    formInputBookCode.addEventListener('input', debounce(async (event) => {
-        await checkExistsBookCode(event.target.value)
+    formInputEmployeeId.addEventListener('input', debounce(async (event) => {
+        await checkExistsEmployeeId(event.target.value)
             .then(
                 () => {
-                    formInputBookCode.classList.add("is-valid");
-                    formInputBookCode.classList.remove("is-invalid");
-                    formInputBookCode.setCustomValidity("");
+                    formInputEmployeeId.classList.add("is-valid");
+                    formInputEmployeeId.classList.remove("is-invalid");
+                    formInputEmployeeId.setCustomValidity("");
                 },
                 () => {
-                    formInputBookCode.classList.add("is-invalid");
-                    formInputBookCode.classList.remove("is-valid");
-                    formInputBookCode.setCustomValidity("invalid");
-                    invalidFeedbackCode.innerHTML = 'Book code exists'
+                    formInputEmployeeId.classList.add("is-invalid");
+                    formInputEmployeeId.classList.remove("is-valid");
+                    formInputEmployeeId.setCustomValidity("invalid");
+                    invalidFeedbackId.innerHTML = 'Employee ID duplicates'
                 })
     }))
 })
 
-async function checkExistsBookCode(code) {
-    if (code.length === 0) return Promise.resolve();
-    await fetch(`http://localhost:8080/v1/books/${code}/exist`, {method: 'GET'})
+async function checkExistsEmployeeId(id) {
+    if (id.length === 0) return Promise.resolve();
+    await fetch(`http://localhost:8080/v1/emps/${id}/exist`, {method: 'GET'})
         .then((res) => {
             if (!res.ok) return Promise.reject();
             else return Promise.resolve();

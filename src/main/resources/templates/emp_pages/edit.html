@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit employee</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://ID.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+            integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+            crossorigin="anonymous"></script>
+    <script src="/js/form.js"></script>
+</head>
+<body>
+<div class="card m-3">
+    <div class="card-header">
+        <h1>Edit employee</h1>
+    </div>
+    <div class="card-body">
+        <form th:action="@{/v2/emps/update}" method="post" th:object="${emp}" class="needs-validation" novalidate>
+            <div class="mt-1 form-floating">
+                <input required maxlength="10" class="form-control" id="formInputEmployeeId" type="text"
+                       th:field="*{id}"
+                       placeholder="Enter employee ID"/><br/>
+                <label for="formInputEmployeeId" class="form-label">Employee ID</label>
+                <div id="invalidFeedbackId" class="invalid-feedback">
+                    Please enter employee ID.
+                </div>
+            </div>
+            <div class="mt-2 form-floating">
+                <input required maxlength="100" class="form-control" id="formInputName" type="text"
+                       th:field="*{name}"
+                       placeholder="Enter name"/><br/>
+                <label for="formInputName" class="form-label">Name</label>
+                <div class="invalid-feedback">
+                    Please enter name.
+                </div>
+            </div>
+            <div class="mt-2 form-floating">
+                <input required class="form-control" id="formInputDob" type="date" th:field="*{dob}"
+                       placeholder="Enter DOB"/><br/>
+                <label for="formInputDob" class="form-label">DoB</label>
+                <div class="invalid-feedback">
+                    Please choose DOB.
+                </div>
+            </div>
+            <div class="mt-2 form-floating">
+                <input class="form-control" id="formInputDepartment" type="text" th:field="*{department}"
+                       placeholder="Enter department"/><br/>
+                <label for="formInputDepartment" class="form-label">Department</label>
+                <div class="invalid-feedback">
+                    Please enter department.
+                </div>
+            </div>
+            <div class="mt-2 form-check">
+                <label for="formCheckHired" class="form-check-label">Hired</label>
+                <input class="form-check-input" id="formCheckHired" type="checkbox" th:field="*{hired}"
+                       value="false"/><br/>
+                <div class="invalid-feedback">
+                    Please choose.
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+            <a th:href="@{/v2/emps}" class="btn btn-link mt-3">Back to list</a>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
