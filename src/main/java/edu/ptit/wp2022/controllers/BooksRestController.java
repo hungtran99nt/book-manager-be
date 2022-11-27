@@ -1,13 +1,18 @@
 package edu.ptit.wp2022.controllers;
 
+import edu.ptit.wp2022.common.RestApi;
+import edu.ptit.wp2022.dto.book.CreateBookRequestDto;
+import edu.ptit.wp2022.dto.book.EditBookRequestDto;
+import edu.ptit.wp2022.dto.book.ListBooksRequestDto;
 import edu.ptit.wp2022.models.Book;
 import edu.ptit.wp2022.services.BookServices;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/v1/books")
+@RequestMapping(RestApi.Book.MAIN)
 public class BooksRestController {
     private final BookServices bookServices;
 
@@ -16,28 +21,28 @@ public class BooksRestController {
     }
 
     @GetMapping()
-    public List<Book> getAllBooks() {
-        return bookServices.getAllBooks();
+    public Page<Book> getAllBooks(@ModelAttribute @Valid ListBooksRequestDto requestDto) {
+        return bookServices.getBooks(requestDto);
     }
 
-    @PostMapping("/add")
-    public Book addBook(@RequestBody Book book) {
-        return bookServices.addBook(book);
+    @GetMapping("/{id}" + RestApi.Common.DETAIL)
+    public Book getBookById(@PathVariable String id) {
+        return bookServices.getBookById(Integer.parseInt(id));
     }
 
-    @PutMapping("/update")
-    public Book updateBook(@RequestBody Book book) {
-        return bookServices.updateBook(book);
+    @PostMapping(RestApi.Common.CREATE)
+    public Book addBook(@RequestBody @Valid CreateBookRequestDto requestDto) {
+        return bookServices.addBook(requestDto);
     }
 
-    @DeleteMapping("/delete/{code}")
-    public void updateBook(@PathVariable String code) {
-        bookServices.deleteBook(Integer.parseInt(code));
+    @PutMapping(RestApi.Common.EDIT)
+    public Book updateBook(@RequestBody @Valid EditBookRequestDto requestDto) {
+        return bookServices.updateBook(requestDto);
     }
 
-    @GetMapping("/{code}/exist")
-    public void existsBookByCode(@PathVariable(value = "code") String code) {
-        bookServices.existsBookByCode(code);
+    @DeleteMapping("/{id}" + RestApi.Common.DELETE)
+    public void updateBook(@PathVariable String id) {
+        bookServices.deleteBook(Integer.parseInt(id));
     }
 }
 

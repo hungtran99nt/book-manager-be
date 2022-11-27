@@ -1,44 +1,49 @@
 package edu.ptit.wp2022.services;
 
+import edu.ptit.wp2022.dto.book.CreateBookRequestDto;
+import edu.ptit.wp2022.dto.book.EditBookRequestDto;
+import edu.ptit.wp2022.dto.book.ListBooksRequestDto;
 import edu.ptit.wp2022.models.Book;
 import edu.ptit.wp2022.repositories.BookRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
 public class BookServices {
+
+    private final ModelMapper modelMapper;
     private final BookRepository bookRepository;
 
-    public BookServices(BookRepository bookRepository) {
+    public BookServices(ModelMapper modelMapper, BookRepository bookRepository) {
+        this.modelMapper = modelMapper;
         this.bookRepository = bookRepository;
     }
 
-    public List<Book> getAllBooks() {
-        return bookRepository.findAll();
+    public Page<Book> getBooks(ListBooksRequestDto requestDto) {
+        return bookRepository.findAll(PageRequest.of(requestDto.getPage(), requestDto.getPageSize()));
     }
 
     public Book getBookById(int id) {
-        return bookRepository.findBookById(id)
+        Book book = bookRepository.findBookById(id)
                 .orElseThrow(() -> new RuntimeException("Book not found"));
+        return modelMapper.map(book, Book.class);
     }
 
-    public Book addBook(Book book) {
-        return bookRepository.save(book);
+    public Book addBook(CreateBookRequestDto requestDto) {
+        Book newBook = modelMapper.map(requestDto, Book.class);
+        return bookRepository.save(newBook);
     }
 
-    public Book updateBook(Book book) {
-        Book desBook = bookRepository.findBookById(book.getId())
+    public Book updateBook(EditBookRequestDto requestDto) {
+        bookRepository.findBookById(requestDto.getId())
                 .orElseThrow(() -> new RuntimeException("Book not found"));
-
-        desBook.setApproved(book.isApproved());
-        desBook.setCategory(book.getCategory());
-        desBook.setTitle(book.getTitle());
-        desBook.setAuthor(book.getAuthor());
-
-        return bookRepository.save(desBook);
+        Book editedBook = modelMapper.map(requestDto, Book.class);
+        return bookRepository.save(editedBook);
     }
 
     @Transactional
@@ -46,10 +51,5 @@ public class BookServices {
         bookRepository.findBookById(id)
                 .orElseThrow(() -> new NoSuchElementException("Book not found"));
         bookRepository.deleteById(id);
-    }
-
-    public void existsBookByCode(String code) {
-        if (bookRepository.existsBookByCode(code))
-            throw new RuntimeException("Book code exists");
     }
 }

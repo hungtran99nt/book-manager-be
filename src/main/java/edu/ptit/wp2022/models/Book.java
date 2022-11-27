@@ -3,6 +3,7 @@ package edu.ptit.wp2022.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
@@ -13,18 +14,18 @@ public class Book {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(name = "code", length = 10, unique = true)
-    private String code;
-
-    @Column(name = "title", length = 100)
+    @Column(name = "title", length = 100, nullable = false)
     private String title;
 
-    @Column(name = "author", length = 50)
+    @Column(name = "author", length = 50, nullable = false)
     private String author;
 
     @Column(name = "category", length = 100)
     private String category;
 
-    @Column(name = "approved", nullable = false)
-    private boolean approved;
+    @Column(name = "publishOn", nullable = false)
+    private Date publishOn;
+
+    @Column(name = "totalPage", nullable = false)
+    private int totalPage;
 }
