@@ -2,9 +2,11 @@ package edu.ptit.wp2022.services;
 
 import edu.ptit.wp2022.dto.user.RegistrationUserRequestDto;
 import edu.ptit.wp2022.dto.user.UserDto;
+import edu.ptit.wp2022.exceptions.BusinessException;
 import edu.ptit.wp2022.models.User;
 import edu.ptit.wp2022.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -46,6 +48,10 @@ public class UserServices {
     }
 
     public UserDto register(RegistrationUserRequestDto requestDto) {
+        Optional<User> user = getUserByUsername(requestDto.getUsername());
+        if (user.isPresent())
+            throw new BusinessException(HttpStatus.BAD_REQUEST, "Username existed");
+
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
         requestDto.setPassword(encodedPassword);
         User newUser = modelMapper.map(requestDto, User.class);

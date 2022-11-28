@@ -24,9 +24,6 @@ public class RegisterUserRestController {
 
     @PostMapping(RestApi.Auth.SIGN_UP)
     public ResponseEntity registerUser(@RequestBody @Valid RegistrationUserRequestDto requestDto) {
-        Optional<User> user = userServices.getUserByUsername(requestDto.getUsername());
-        if (user.isPresent())
-            throw new BusinessException(HttpStatus.BAD_REQUEST, "Username existed");
         return ResponseEntity.ok(userServices.register(requestDto));
     }
 }
