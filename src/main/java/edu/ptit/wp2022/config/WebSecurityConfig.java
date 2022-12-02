@@ -57,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, RestApi.Auth.SIGN_UP).permitAll()
                 .antMatchers("/**/books").permitAll() // user can access their own assignments
                 .antMatchers("/**/books/**/").hasAuthority("Admin") // only allow admins to access these endpoints
+                .antMatchers("/**/file/**/").hasAuthority("Admin") // only allow admins to access these endpoints
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and() // All other requests need to be authenticated
