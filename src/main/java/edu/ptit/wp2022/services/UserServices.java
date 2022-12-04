@@ -26,10 +26,10 @@ public class UserServices {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserDto getUserById(Integer id) {
+    public UserDto getUserInfoByUsername(String username) {
         User user =
                 userRepository
-                        .findById(id)
+                        .findByUsername(username)
                         .orElseThrow(() -> new RuntimeException("User not found."));
         return modelMapper.map(user, UserDto.class);
     }

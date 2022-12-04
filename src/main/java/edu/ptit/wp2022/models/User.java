@@ -37,5 +37,5 @@ public class User {
     private Date dob;
 
     @Column(name = "type", length = 10, nullable = false)
-    private String type;
+    private String type = "Admin";
 }

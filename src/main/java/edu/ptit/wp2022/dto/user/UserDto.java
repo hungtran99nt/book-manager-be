@@ -12,7 +12,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto implements Serializable {
-    private Integer id;
     private String username;
     private String firstName;
     private String lastName;

@@ -20,6 +20,9 @@ public class Book {
     @Column(name = "author", length = 50, nullable = false)
     private String author;
 
+    @Column(name = "description", length = 500)
+    private String description;
+
     @Column(name = "category", length = 100)
     private String category;
 
@@ -28,4 +31,7 @@ public class Book {
 
     @Column(name = "totalPage", nullable = false)
     private int totalPage;
+
+    @Column(name = "imagePath")
+    private String imagePath;
 }

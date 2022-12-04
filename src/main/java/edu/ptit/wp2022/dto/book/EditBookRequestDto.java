@@ -28,9 +28,14 @@ public class EditBookRequestDto {
     @Size(max = 50)
     private String category;
 
+    @Size(max = 500)
+    private String description;
+
     @NotNull
     private Date publishOn;
 
     @Max(value = 10000)
     private int totalPage;
+
+    private String imagePath;
 }

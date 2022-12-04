@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ListBooksRequestDto {
-
     private boolean isFetchAll = false;
     private int page = 1;
     private int pageSize = 10;

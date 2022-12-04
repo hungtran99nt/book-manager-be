@@ -28,13 +28,11 @@ public class RegistrationUserRequestDto {
     @Size(max = 50)
     private String lastName;
 
-    @NotNull
     @Size(max = 10)
     private String gender;
 
     private Date dob;
 
-    @NotNull
     @Size(max = 10)
-    private String type;
+    private String type = "Admin";
 }

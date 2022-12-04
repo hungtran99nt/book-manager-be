@@ -13,6 +13,10 @@ public interface RestApi {
         String MAIN = BASE + "/books";
     }
 
+    interface User {
+        String MAIN = BASE + "/users";
+    }
+
     interface File {
         String MAIN = BASE + "/file";
         String UPLOAD = "/upload";
